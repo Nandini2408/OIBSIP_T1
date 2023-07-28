@@ -1,107 +1,85 @@
-import java.util.Scanner;
+2import java.util.Scanner;
 
-public class OnlineReservSystem {
+public class OnlineReservationSystem {
 
-    // Initialize variables for user login
-    static String username = "admin";
-    static String password = "1234";
-
-    // Initialize variables for reservation form
-    static int trainNumber;
-    static char trainName;
-    static char classType;
-    static String from;
-    static String to;
-    static String dateOfJourney;
+    private static boolean[] seats = new boolean[10]; // initialize an array of 10 seats, all empty
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        // Login form
-        System.out.println("-------------------------------------------");
-        System.out.println("");
-        System.out.println("         ONLINE RESRVATION SYSTEM          ");
-        System.out.println("");
-        System.out.println("-------------------------------------------");
-        System.out.println("");
-        System.out.print("             Username :");
-        String inputUsername = sc.nextLine();
-        System.out.print("             Password :");
-        String inputPassword = sc.nextLine();
-        System.out.println("");
+        Scanner scanner = new Scanner(System.in);
 
-        if (inputUsername.equals(username) && inputPassword.equals(password)) {
-            System.out.println("-------------------------------------------");
+        while (true) {
 
-            System.out.println("          Login successfully...            ");
-        } else {
-            System.out.println("");
-            System.out.println("        Invalid login credentials...        ");
-            System.out.println("");
+            // display menu
+            System.out.println("\nPlease select an option:");
+            System.out.println("1. View Seat Map");
+            System.out.println("2. Reserve Seat");
+            System.out.println("3. Cancel Reservation");
+            System.out.println("4. Exit");
 
-            return;
+            // get user input
+            int option = scanner.nextInt();
+
+            switch (option) {
+
+                case 1:
+                    viewSeatMap();
+                    break;
+
+                case 2:
+                    reserveSeat();
+                    break;
+
+                case 3:
+                    cancelReservation();
+                    break;
+
+                case 4:
+                    System.exit(0); // exit the program
+
+                default:
+                    System.out.println("Invalid option!");
+            }
         }
+    }
 
-        // Reservation system
-        System.out.println("-------------------------------------------");
-        System.out.println("");
-        System.out.println("Please fill the details for your reservation :");
-        System.out.println("");
-
-        System.out.print("Train number: ");
-        trainNumber = sc.nextInt();
-
-        System.out.println("");
-        System.out.print("Train name: ");
-        trainName = sc.next().charAt(0);
-
-        System.out.println("");
-        System.out.print("Class type: ");
-        classType = sc.next().charAt(1);
-
-        System.out.println("");
-        System.out.print("From: ");
-        from = sc.next();
-
-        System.out.println("");
-        System.out.print("To: ");
-        to = sc.next();
-
-        System.out.println("");
-        System.out.print("Date of journey: ");
-        dateOfJourney = sc.next();
-        System.out.println("");
-
-        // Print ticket
-        System.out.println("-------------------------------------------");
-        System.out.println("");
-        System.out.println("            TICKET DETAILS                ");
-        System.out.println("");
-        System.out.println("-------------------------------------------");
-        System.out.println("");
-        System.out.println("Train Number: " + trainNumber);
-        System.out.println("Train Name: " + trainName);
-        System.out.println("Class Type: " + classType);
-        System.out.println("From: " + from);
-        System.out.println("To: " + to);
-        System.out.println("Date of Journey: " + dateOfJourney);
-        System.out.println("");
-        System.out.println("-------------------------------------------");
-        System.out.println("");
-
-        // Cancellation form
-        System.out.println("Enter PNR number to cancel a reservation: ");
-        String pnrNumber = sc.next();
-        System.out.println("");
-        System.out.println("Do you want to cancel this ticket (OK/Cancel): ");
-        String confirmation = sc.next();
-        if (confirmation.equalsIgnoreCase("OK")) {
-            System.out.println("");
-            System.out.println("Reservation cancelled successfully...");
-        } else {
-            System.out.println("Reservation not cancelled...");
+    private static void viewSeatMap() {
+        System.out.println("\nCurrent Seat Map:");
+        for (int i = 0; i < seats.length; i++) {
+            if (seats[i]) {
+                System.out.print("X "); // print an "X" if the seat is reserved
+            } else {
+                System.out.print((i + 1) + " "); // print the seat number if it's empty
+            }
         }
+        System.out.println();
+    }
 
-        sc.close();
+    private static void reserveSeat() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nEnter seat number (1-10): ");
+        int seatNumber = scanner.nextInt();
+        if (seatNumber < 1 || seatNumber > 10) {
+            System.out.println("Invalid seat number!");
+        } else if (seats[seatNumber - 1]) {
+            System.out.println("Seat already reserved!");
+        } else {
+            seats[seatNumber - 1] = true; // reserve the seat
+            System.out.println("Seat reserved!");
+        }
+    }
+
+    private static void cancelReservation() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nEnter seat number (1-10): ");
+        int seatNumber = scanner.nextInt();
+        if (seatNumber < 1 || seatNumber > 10) {
+            System.out.println("Invalid seat number!");
+        } else if (!seats[seatNumber - 1]) {
+            System.out.println("Seat not reserved!");
+        } else {
+            seats[seatNumber - 1] = false; // unreserve the seat
+            System.out.println("Reservation canceled!");
+        }
     }
 }
