@@ -1,0 +1,92 @@
+ 10. a ) Create aClasscomponent for Changing the Colorofthe Text and applydifferent
+ font operations to that text, in React JS.
+
+APP.JS
+
+import React, { Component } from 'react';
+
+class ColorChanger extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: 'black' // default color
+    };
+  }
+
+  changeColor = (newColor) => {
+    this.setState({ color: newColor });
+  }
+
+  render() {
+    const { color } = this.state;
+
+    return (
+      <div>
+        <p style={{ color }}>The color of this text is {color}.</p>
+        <button onClick={() => this.changeColor('red')}>Red</button>
+        <button onClick={() => this.changeColor('blue')}>Blue</button>
+        <button onClick={() => this.changeColor('green')}>Green</button>
+      </div>
+    );
+  }
+}
+
+export default ColorChanger;
+
+
+
+
+
+
+
+
+
+ b) Demonstrate Event Bubbling with necessary example using HTML, CSS
+
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>Event Bubbling</title>
+        <style>
+        body{
+            padding:20px;
+            background-color:pink;
+        }
+        div{
+            padding:20px;
+            background-color:green;
+            width:max-content;
+        }
+        span{
+            display:block;
+            padding:20px;
+            background-color:blue;
+        }
+        </style>
+    </head>
+    <body>
+        <div>
+            <span>
+                <button>Click Me!</button>
+            </span>
+        </div>
+        <script>
+            const body=document.getElementsByTagName("body")[0];
+            const div=document.getElementsByTagName("div")[0];
+            const span=document.getElementsByTagName("span")[0];
+            const button=document.getElementsByTagName("button")[0];
+            body.addEventListener('click', () =>{
+                alert("body was clicked")
+            });
+            div.addEventListener('click', () =>{
+                alert("div was clicked")
+            });
+            span.addEventListener('click', () =>{
+                alert("span was clicked")
+            });
+            button.addEventListener('click', () =>{
+                alert("button was clicked")
+            });
+        </script>
+    </body>
+</html>
