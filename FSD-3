@@ -1,0 +1,61 @@
+3. a) Create a Class Component for viewing an Array ofObjects in a Tabular form
+
+TABLE VIEW.JSX
+
+import React, { Component } from 'react';
+class TableView extends Component {
+  render() {
+    const data = this.props.data;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.age}</td>
+              <td>{item.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+}
+
+export default TableView;
+
+
+
+
+
+
+APP.JS
+
+import React, { Component } from 'react';
+import TableView from './TableView'; // assuming the TableView component is in a separate file
+
+class App extends Component {
+  render() {
+    const data = [
+      { name: 'John', age: 25, email: 'john@example.com' },
+      { name: 'Alice', age: 30, email: 'alice@example.com' },
+      { name: 'Bob', age: 35, email: 'bob@example.com' }
+    ];
+
+    return (
+      <div>
+        <h1>Table View Example</h1>
+        <TableView data={data} />
+      </div>
+    );
+  }
+}
+
+export default App;
