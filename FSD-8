@@ -1,0 +1,118 @@
+ 8. a)Demonstrate Event bubbling with necessary example
+
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>Event Bubbling</title>
+        <style>
+        body{
+            padding:20px;
+            background-color:pink;
+        }
+        div{
+            padding:20px;
+            background-color:green;
+            width:max-content;
+        }
+        span{
+            display:block;
+            padding:20px;
+            background-color:blue;
+        }
+        </style>
+    </head>
+    <body>
+        <div>
+            <span>
+                <button>Click Me!</button>
+            </span>
+        </div>
+        <script>
+            const body=document.getElementsByTagName("body")[0];
+            const div=document.getElementsByTagName("div")[0];
+            const span=document.getElementsByTagName("span")[0];
+            const button=document.getElementsByTagName("button")[0];
+            body.addEventListener('click', () =>{
+                alert("body was clicked")
+            });
+            div.addEventListener('click', () =>{
+                alert("div was clicked")
+            });
+            span.addEventListener('click', () =>{
+                alert("span was clicked")
+            });
+            button.addEventListener('click', () =>{
+                alert("button was clicked")
+            });
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+ b) Create a React app to display Digital Clock.
+
+DIGITAL CLOCK.JSX
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import DigitalClock from './DigitalClock';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <DigitalClock />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+
+
+
+
+
+APP.JS
+
+import React, { Component } from 'react';
+
+class DigitalClock extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: new Date().toLocaleTimeString()
+    };
+  }
+
+  componentDidMount() {
+    this.intervalID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  tick() {
+    this.setState({
+      time: new Date().toLocaleTimeString()
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Digital Clock</h1>
+        <p>Current Time: {this.state.time}</p>
+      </div>
+    );
+  }
+}
+export default DigitalClock;
